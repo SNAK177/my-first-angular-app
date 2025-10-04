@@ -1,0 +1,104 @@
+<!--
+  TEMPLATE DETTAGLIO LIBRO
+
+  Questo template dimostra:
+  - Uso di @if per il rendering condizionale
+  - Property binding avanzato
+  - Event binding
+  - Navigazione programmatica
+-->
+
+<div class="dettaglio-container">
+  <!-- STATO DI CARICAMENTO -->
+  @if (caricamento) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Caricamento dettagli libro...</p>
+    </div>
+  }
+
+  <!-- DETTAGLI LIBRO -->
+  @if (!caricamento && libro) {
+    <div class="dettaglio-content">
+      <button (click)="tornaAllaLista()" class="btn-back">
+        ← Torna alla Lista
+      </button>
+
+      <div class="libro-header">
+        @if (libro.copertina) {
+          <img
+            [src]="libro.copertina"
+            [alt]="libro.titolo"
+            class="libro-copertina-grande"
+          />
+        }
+
+        <div class="libro-info-principale">
+          <h1>{{ libro.titolo }}</h1>
+          <h2 class="autore">di {{ libro.autore }}</h2>
+
+          <div class="meta-info">
+            <div class="meta-item">
+              <span class="label">Anno:</span>
+              <span class="value">{{ libro.anno }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Genere:</span>
+              <span class="value badge">{{ libro.genere }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Stato:</span>
+              <span
+                class="value stato-badge"
+                [class.disponibile]="libro.disponibile"
+                [class.non-disponibile]="!libro.disponibile"
+              >
+                {{ libro.disponibile ? '✓ Disponibile' : '✗ Non disponibile' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="azioni-gruppo">
+            <button (click)="modificaLibro()" class="btn-modifica">
+              ✏️ Modifica
+            </button>
+            <button (click)="eliminaLibro()" class="btn-elimina">
+              🗑️ Elimina
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="libro-descrizione">
+        <h3>Descrizione</h3>
+        <p>{{ libro.descrizione }}</p>
+      </div>
+
+      <div class="info-aggiuntive">
+        <h3>Informazioni Aggiuntive</h3>
+        <ul>
+          <li><strong>ID:</strong> {{ libro.id }}</li>
+          <li><strong>Titolo completo:</strong> {{ libro.titolo }}</li>
+          <li><strong>Autore:</strong> {{ libro.autore }}</li>
+          <li><strong>Anno di pubblicazione:</strong> {{ libro.anno }}</li>
+          <li><strong>Genere letterario:</strong> {{ libro.genere }}</li>
+          <li>
+            <strong>Disponibilità:</strong>
+            {{ libro.disponibile ? 'Libro disponibile per il prestito' : 'Libro attualmente in prestito' }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  }
+
+  <!-- MESSAGGIO DI ERRORE -->
+  @if (!caricamento && !libro) {
+    <div class="errore">
+      <h2>Libro non trovato</h2>
+      <p>Il libro richiesto non esiste nel database.</p>
+      <button (click)="tornaAllaLista()" class="btn-back">
+        Torna alla Lista
+      </button>
+    </div>
+  }
+</div>

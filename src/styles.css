@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+  STILI GLOBALI
+
+  Questo file contiene gli stili che si applicano all'intera applicazione
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: inherit;
+}
+
+mark {
+  background: #fef08a;
+  padding: 0.1rem 0.2rem;
+  border-radius: 2px;
+}

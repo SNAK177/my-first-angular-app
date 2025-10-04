@@ -1,0 +1,61 @@
+<!--
+  TEMPLATE HOME
+
+  Questo è il template HTML del componente Home.
+  Qui usiamo diverse funzionalità di Angular:
+-->
+
+<div class="home-container">
+  <!-- INTERPOLAZIONE: {{ }} -->
+  <!-- Mostra il valore di una proprietà del componente -->
+  <header class="hero">
+    <h1>{{ titolo }}</h1>
+    <p class="subtitle">{{ sottotitolo }}</p>
+
+    <!-- EVENT BINDING: (evento)="metodo()" -->
+    <!-- Collega un evento del DOM a un metodo del componente -->
+    <button class="btn-primary" (click)="mostraMessaggio()">
+      Clicca per vedere un Alert!
+    </button>
+
+    <!-- PROPERTY BINDING con RouterLink -->
+    <!-- [routerLink] permette di navigare a un'altra rotta -->
+    <a [routerLink]="['/libri']" class="btn-secondary">
+      Vai alla Lista Libri 📚
+    </a>
+  </header>
+
+  <section class="features">
+    <h2>Funzionalità di Angular dimostrate in questa app:</h2>
+
+    <!-- DIRETTIVA STRUTTURALE: *ngFor -->
+    <!-- Ripete un elemento per ogni item in un array -->
+    <!-- 'let' crea una variabile template locale -->
+    <div class="features-grid">
+      @for (feature of funzionalita; track feature.titolo) {
+        <div class="feature-card">
+          <div class="feature-icon">{{ feature.icona }}</div>
+          <h3>{{ feature.titolo }}</h3>
+          <p>{{ feature.descrizione }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="info">
+    <h2>Cosa troverai in questa applicazione:</h2>
+    <ul class="info-list">
+      <li><strong>Lista Libri:</strong> Visualizza tutti i libri con filtri e ricerca</li>
+      <li><strong>Dettaglio Libro:</strong> Vedi i dettagli completi di ogni libro</li>
+      <li><strong>Form Libro:</strong> Aggiungi o modifica libri con validazione</li>
+      <li><strong>Servizi:</strong> Gestione centralizzata dei dati con Observable</li>
+      <li><strong>Routing:</strong> Navigazione tra le pagine</li>
+      <li><strong>Direttive Custom:</strong> Evidenziazione visiva della disponibilità</li>
+      <li><strong>Pipe Custom:</strong> Evidenziazione del testo cercato</li>
+    </ul>
+  </section>
+
+  <footer class="home-footer">
+    <p>💡 Ogni file contiene commenti dettagliati per aiutarti a imparare!</p>
+  </footer>
+</div>

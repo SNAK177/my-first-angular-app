@@ -1,0 +1,179 @@
+<!--
+  TEMPLATE FORM LIBRO
+
+  Questo template dimostra:
+  - REACTIVE FORMS con formGroup e formControlName
+  - Validazione dei form
+  - Visualizzazione degli errori di validazione
+  - Property e Event binding
+-->
+
+<div class="form-container">
+  <div class="form-card">
+    <h1>{{ modalitaModifica ? 'Modifica Libro' : 'Aggiungi Nuovo Libro' }}</h1>
+
+    <!--
+      REACTIVE FORM
+      [formGroup] collega il form al FormGroup del componente
+      (ngSubmit) viene chiamato quando il form viene inviato
+    -->
+    <form [formGroup]="libroForm" (ngSubmit)="onSubmit()">
+
+      <!-- Campo Titolo -->
+      <div class="form-group">
+        <label for="titolo">Titolo *</label>
+        <!--
+          formControlName collega l'input a un controllo specifico del FormGroup
+        -->
+        <input
+          type="text"
+          id="titolo"
+          formControlName="titolo"
+          class="form-input"
+          [class.error]="haErrore('titolo')"
+          placeholder="Es: Il Signore degli Anelli"
+        />
+        <!--
+          Mostra il messaggio di errore se il campo ha errori
+        -->
+        @if (haErrore('titolo')) {
+          <span class="error-message">{{ getMessaggioErrore('titolo') }}</span>
+        }
+      </div>
+
+      <!-- Campo Autore -->
+      <div class="form-group">
+        <label for="autore">Autore *</label>
+        <input
+          type="text"
+          id="autore"
+          formControlName="autore"
+          class="form-input"
+          [class.error]="haErrore('autore')"
+          placeholder="Es: J.R.R. Tolkien"
+        />
+        @if (haErrore('autore')) {
+          <span class="error-message">{{ getMessaggioErrore('autore') }}</span>
+        }
+      </div>
+
+      <!-- Campo Anno -->
+      <div class="form-group">
+        <label for="anno">Anno di Pubblicazione *</label>
+        <input
+          type="number"
+          id="anno"
+          formControlName="anno"
+          class="form-input"
+          [class.error]="haErrore('anno')"
+          placeholder="Es: 1954"
+        />
+        @if (haErrore('anno')) {
+          <span class="error-message">{{ getMessaggioErrore('anno') }}</span>
+        }
+      </div>
+
+      <!-- Campo Genere -->
+      <div class="form-group">
+        <label for="genere">Genere *</label>
+        <select
+          id="genere"
+          formControlName="genere"
+          class="form-input"
+          [class.error]="haErrore('genere')"
+        >
+          <option value="">Seleziona un genere</option>
+          @for (genere of generiDisponibili; track genere) {
+            <option [value]="genere">{{ genere }}</option>
+          }
+        </select>
+        @if (haErrore('genere')) {
+          <span class="error-message">{{ getMessaggioErrore('genere') }}</span>
+        }
+      </div>
+
+      <!-- Campo Descrizione -->
+      <div class="form-group">
+        <label for="descrizione">Descrizione *</label>
+        <textarea
+          id="descrizione"
+          formControlName="descrizione"
+          class="form-input"
+          [class.error]="haErrore('descrizione')"
+          rows="5"
+          placeholder="Inserisci una breve descrizione del libro..."
+        ></textarea>
+        @if (haErrore('descrizione')) {
+          <span class="error-message">{{ getMessaggioErrore('descrizione') }}</span>
+        }
+      </div>
+
+      <!-- Campo Copertina -->
+      <div class="form-group">
+        <label for="copertina">URL Copertina</label>
+        <input
+          type="url"
+          id="copertina"
+          formControlName="copertina"
+          class="form-input"
+          placeholder="https://esempio.com/copertina.jpg"
+        />
+        <small class="help-text">
+          Inserisci l'URL di un'immagine per la copertina (opzionale)
+        </small>
+      </div>
+
+      <!-- Campo Disponibile -->
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            formControlName="disponibile"
+          />
+          <span>Il libro è disponibile per il prestito</span>
+        </label>
+      </div>
+
+      <!-- Pulsanti di azione -->
+      <div class="form-actions">
+        <button
+          type="button"
+          (click)="annulla()"
+          class="btn btn-secondary"
+          [disabled]="invioInCorso"
+        >
+          Annulla
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="invioInCorso"
+        >
+          @if (invioInCorso) {
+            <span>Salvataggio in corso...</span>
+          } @else {
+            <span>{{ modalitaModifica ? 'Aggiorna' : 'Crea' }} Libro</span>
+          }
+        </button>
+      </div>
+
+      <!-- Stato del form (solo per debug/apprendimento) -->
+      <div class="form-debug">
+        <details>
+          <summary>Debug Info (clicca per espandere)</summary>
+          <div class="debug-content">
+            <p><strong>Stato Form:</strong></p>
+            <ul>
+              <li>Valido: {{ libroForm.valid ? 'Sì' : 'No' }}</li>
+              <li>Modificato: {{ libroForm.dirty ? 'Sì' : 'No' }}</li>
+              <li>Toccato: {{ libroForm.touched ? 'Sì' : 'No' }}</li>
+            </ul>
+            <p><strong>Valori Form:</strong></p>
+            <pre>{{ libroForm.value | json }}</pre>
+          </div>
+        </details>
+      </div>
+
+    </form>
+  </div>
+</div>

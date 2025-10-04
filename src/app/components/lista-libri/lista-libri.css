@@ -1,0 +1,282 @@
+.lista-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.lista-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lista-header h1 {
+  font-size: 2.5rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+.btn-aggiungi {
+  padding: 0.75rem 1.5rem;
+  background: #10b981;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-aggiungi:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.filtri-panel {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.filtri-panel h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.filtri-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filtro-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtro-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.input-ricerca,
+.input-select {
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-ricerca:focus,
+.input-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 1.75rem;
+}
+
+.checkbox-label input {
+  margin-right: 0.5rem;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.btn-reset {
+  padding: 0.75rem 1.5rem;
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 1.75rem;
+}
+
+.btn-reset:hover {
+  background: #4b5563;
+}
+
+.risultati-info {
+  text-align: center;
+  padding: 1rem;
+  background: #f3f4f6;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+}
+
+.spinner {
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.libri-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.libro-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.libro-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.libro-copertina {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.libro-info {
+  padding: 0.5rem;
+}
+
+.libro-titolo {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.libro-autore {
+  color: #6b7280;
+  margin: 0 0 1rem 0;
+  font-style: italic;
+}
+
+.libro-dettagli {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.anno {
+  background: #f3f4f6;
+  color: #4b5563;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.stato-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.stato-badge.disponibile {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.stato-badge.non-disponibile {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.libro-azioni {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-elimina {
+  flex: 1;
+  padding: 0.5rem;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-elimina:hover {
+  background: #dc2626;
+}
+
+.nessun-risultato {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nessun-risultato p {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .lista-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .libri-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filtri-grid {
+    grid-template-columns: 1fr;
+  }
+}

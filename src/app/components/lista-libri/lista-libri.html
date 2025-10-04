@@ -1,0 +1,156 @@
+<!--
+  TEMPLATE LISTA LIBRI
+
+  Questo template dimostra:
+  - Direttive strutturali (@if, @for)
+  - Property binding [proprieta]="valore"
+  - Event binding (evento)="metodo()"
+  - Two-way binding [(ngModel)]="proprieta"
+  - Direttive personalizzate
+-->
+
+<div class="lista-container">
+  <header class="lista-header">
+    <h1>Biblioteca Libri</h1>
+    <a [routerLink]="['/libro/nuovo']" class="btn-aggiungi">
+      + Aggiungi Nuovo Libro
+    </a>
+  </header>
+
+  <!-- PANNELLO FILTRI -->
+  <div class="filtri-panel">
+    <h3>Filtri di Ricerca</h3>
+
+    <div class="filtri-grid">
+      <!-- TWO-WAY BINDING con [(ngModel)] -->
+      <!-- Collega il valore dell'input alla proprietà del componente in entrambe le direzioni -->
+      <div class="filtro-group">
+        <label for="ricerca">Cerca per titolo o autore:</label>
+        <input
+          type="text"
+          id="ricerca"
+          [(ngModel)]="termineRicerca"
+          (input)="applicaFiltri()"
+          placeholder="Es: Harry Potter..."
+          class="input-ricerca"
+        />
+      </div>
+
+      <!-- SELECT con ngModel -->
+      <div class="filtro-group">
+        <label for="genere">Filtra per genere:</label>
+        <select
+          id="genere"
+          [(ngModel)]="genereSelezionato"
+          (change)="applicaFiltri()"
+          class="input-select"
+        >
+          <option value="">Tutti i generi</option>
+          @for (genere of generi; track genere) {
+            <option [value]="genere">{{ genere }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- CHECKBOX con ngModel -->
+      <div class="filtro-group">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            [(ngModel)]="soloDisponibili"
+            (change)="applicaFiltri()"
+          />
+          Solo libri disponibili
+        </label>
+      </div>
+
+      <div class="filtro-group">
+        <button (click)="resetFiltri()" class="btn-reset">
+          Reset Filtri
+        </button>
+      </div>
+    </div>
+
+    <div class="risultati-info">
+      Trovati {{ libriFiltrati.length }} libri
+    </div>
+  </div>
+
+  <!-- STATO DI CARICAMENTO -->
+  <!-- DIRETTIVA STRUTTURALE @if (Angular 17+) -->
+  <!-- Mostra/nasconde elementi basandosi su una condizione -->
+  @if (caricamento) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Caricamento libri in corso...</p>
+    </div>
+  }
+
+  <!-- LISTA LIBRI -->
+  @if (!caricamento) {
+    <!-- Controlla se ci sono libri da mostrare -->
+    @if (libriFiltrati.length > 0) {
+      <div class="libri-grid">
+        <!-- DIRETTIVA STRUTTURALE @for -->
+        <!-- Ripete l'elemento per ogni item nell'array -->
+        <!-- track è importante per le performance -->
+        @for (libro of libriFiltrati; track libro.id) {
+          <!-- DIRETTIVA PERSONALIZZATA: appEvidenziaDisponibile -->
+          <!-- Cambia lo stile dell'elemento in base alla disponibilità -->
+          <div
+            class="libro-card"
+            [appEvidenziaDisponibile]="libro.disponibile"
+            [routerLink]="['/libro', libro.id]"
+          >
+            @if (libro.copertina) {
+              <img
+                [src]="libro.copertina"
+                [alt]="libro.titolo"
+                class="libro-copertina"
+              />
+            }
+
+            <div class="libro-info">
+              <h3 class="libro-titolo">{{ libro.titolo }}</h3>
+              <p class="libro-autore">di {{ libro.autore }}</p>
+
+              <div class="libro-dettagli">
+                <span class="badge">{{ libro.genere }}</span>
+                <span class="anno">{{ libro.anno }}</span>
+              </div>
+
+              <!-- CLASS BINDING -->
+              <!-- Aggiunge/rimuove classi CSS dinamicamente -->
+              <div
+                class="stato-badge"
+                [class.disponibile]="libro.disponibile"
+                [class.non-disponibile]="!libro.disponibile"
+              >
+                {{ libro.disponibile ? 'Disponibile' : 'Non disponibile' }}
+              </div>
+
+              <div class="libro-azioni">
+                <!-- EVENT BINDING con stopPropagation -->
+                <button
+                  (click)="eliminaLibro(libro.id, $event)"
+                  class="btn-elimina"
+                  title="Elimina libro"
+                >
+                  Elimina
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Messaggio quando non ci sono risultati -->
+      <div class="nessun-risultato">
+        <p>Nessun libro trovato con questi filtri.</p>
+        <button (click)="resetFiltri()" class="btn-reset">
+          Rimuovi Filtri
+        </button>
+      </div>
+    }
+  }
+</div>
